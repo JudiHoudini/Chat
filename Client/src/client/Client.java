@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class Client {
 	public static void main(String[] args) {
-		Thread send = null, receive = null;
+		Thread send = null, receive = null,test = null;
 		try {
 			Socket sock = new Socket("127.0.0.1",2273);
 		} catch (UnknownHostException e) {
@@ -23,7 +23,7 @@ public class Client {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		ThreadCli cli = new ThreadCli();
 		cli.getThread(send, receive, sock);
 }
