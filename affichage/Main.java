@@ -4,6 +4,10 @@
  */
 package affichage;
 
+import information.InfoClient;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import window.FenetreClient;
 import window.FenetreServeur;
 
@@ -13,7 +17,16 @@ import window.FenetreServeur;
  */
 public class Main {
     public static void main(String[] args) {
-        FenetreServeur f = new FenetreServeur();
-        FenetreClient fC = new FenetreClient();
+        try {
+            FenetreServeur f = new FenetreServeur();
+            FenetreClient fC = new FenetreClient();
+            InfoClient inf = new InfoClient();
+            Vector add = inf.getListeElementAttributs();
+            for (int i = 0; i < add.size(); i++) {
+                System.out.println(add.get(i));
+            }
+        } catch (Exception ex) {
+            ex.getMessage();
+        }
     }
 }

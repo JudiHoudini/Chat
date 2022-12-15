@@ -11,11 +11,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.DataInputStream;
 import java.io.ObjectInputStream;
+import window.FenetreServeur;
 
 public class Serveur extends Thread{
     Vector<Client> lsClient = new Vector<>();
     ServerSocket serveur;
     int port;
+    FenetreServeur fenetre;
 
     public ServerSocket getServeur() {
         return serveur;
@@ -40,6 +42,14 @@ public class Serveur extends Thread{
     public void setPort(int port) {
         this.port = port;
     }
+
+    public FenetreServeur getFenetre() {
+        return fenetre;
+    }
+
+    public void setFenetre(FenetreServeur fenetre) {
+        this.fenetre = fenetre;
+    }
     
     
     public static Socket createServer(int port) throws Exception{
@@ -49,8 +59,9 @@ public class Serveur extends Thread{
     }
     
 
-    public Serveur(int port) throws IOException {
+    public Serveur(int port,FenetreServeur f) throws IOException {
         this.setPort(port);
+        this.setFenetre(f);
     }
     
 
@@ -62,6 +73,8 @@ public class Serveur extends Thread{
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             Message msg = (Message) ois.readObject();
             InfoClient inf = msg.getInfo();
+            this.addClient(msg);
+            this.getFenetre().mkLsClient();
             System.out.println(inf);
             socket.close();
         } catch (Exception ex) {
@@ -82,6 +95,13 @@ public class Serveur extends Thread{
             if(getLsClient().get(i).getMessage().getInfo().equals(inf))return;
         }
         this.getLsClient().add(c);
+    }
+    public Vector<Vector> getLsInfoClients() throws Exception{
+        Vector<Vector> valiny = new Vector<>();
+        for (int i = 0; i < this.getLsClient().size(); i++) {
+            valiny.add(this.getLsClient().get(i).getMessage().getInfo().getListeElementAttributs());
+        }
+        return valiny;
     }
 }
     

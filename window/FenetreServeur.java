@@ -4,8 +4,11 @@
  */
 package window;
 
+import information.InfoClient;
 import javax.swing.*;
 import java.awt.GridLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import listener.SendPortServer;
 import serveur.Serveur;
 
@@ -59,7 +62,7 @@ public class FenetreServeur extends JFrame{
     public void setServeur(Serveur serveur) {
         this.serveur = serveur;
     }
-
+    
     public void mkInscription(){
         JPanel valiny = new JPanel();
         JTextField port = new JTextField("9999");
@@ -85,8 +88,20 @@ public class FenetreServeur extends JFrame{
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(300,200);
     }
-    public void mkLClient(){
-        JTable listeClient = new JTable();
+    public void mkLsClient(){
+        InfoClient inf = null;
+        JTable listeClient = null;
+        try {
+            inf = new InfoClient();
+            listeClient = new JTable(this.getServeur().getLsInfoClients(),inf.getListeNomAttributs());
+        } catch (Exception ex) {
+            ex.getMessage();
+        }
+        JFrame frame = new JFrame();
+        frame.setSize(800,600);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(listeClient);
     }
-
+    
 }

@@ -34,7 +34,7 @@ public class SendPortServer implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         int port = Integer.parseInt(this.getServeur().getPort().getText());
         try {
-            this.getServeur().setServeur(new Serveur(port));
+            this.getServeur().setServeur(new Serveur(port,this.getServeur()));
             this.getServeur().getServeur().start();
         } catch (Exception ex) {
             ex.getMessage();

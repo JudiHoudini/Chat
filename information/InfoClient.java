@@ -6,6 +6,8 @@ package information;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.Integer;
 import java.net.*;
 import java.util.Enumeration;
 import java.util.Vector;
@@ -118,5 +120,27 @@ public class InfoClient implements Serializable{
     public String obtenirAddressIp() throws Exception{
         InetAddress ip= InetAddress.getLocalHost();
         return ip.getHostAddress();
+    }
+    
+    public Vector<String> getListeNomAttributs(){
+        Vector<String> valiny = new Vector<>();
+        for (int i = 0; i < this.getClass().getDeclaredFields().length; i++) {
+            valiny.add(this.getClass().getDeclaredFields()[i].getName());
+        }
+        return valiny;
+    }
+    public Vector<String> getListeElementAttributs() throws Exception{
+        Vector<String> valiny = new Vector<>();
+        for (int i = 0; i < this.getClass().getDeclaredFields().length; i++) {
+            Method m = this.getClass().getMethod("get"+this.getClass().getDeclaredFields()[i].getName());
+            if(this.getClass().getDeclaredFields()[i].getType().equals(int.class)){
+                int add = (int) m.invoke(this);
+                valiny.add(String.valueOf(add));
+            }else{
+                String add =  (String) m.invoke(this);
+                valiny.add(add);
+            }
+        }
+        return valiny;
     }
 }
