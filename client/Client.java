@@ -47,21 +47,22 @@ public class Client extends Thread implements Serializable{
     public void setMessage(Message message) {
         this.message = message;
     }
-    
-    
+
+
     public Client() throws Exception {
         this.setInfo(new InfoClient());
     }
-    
-    
-    
+
+    public Client(Message message) {
+        this.message = message;
+    }
 
     @Override
     public void run() {
         try {
             this.setInfo(new InfoClient());
             this.setMessage(new Message(getInfo(), "coucou"));
-            Socket socket = new Socket(this.getHost(), this.getPort());            
+            Socket socket = new Socket(this.getHost(), this.getPort());
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             oos.writeObject(getMessage());
             oos.flush();
@@ -69,7 +70,7 @@ public class Client extends Thread implements Serializable{
             socket.close();
         } catch (Exception ex) {
         }
-        
+
     }
-    
+
 }

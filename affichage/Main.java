@@ -5,6 +5,7 @@
 package affichage;
 
 import window.FenetreClient;
+import window.FenetreServeur;
 
 /**
  *
@@ -12,6 +13,7 @@ import window.FenetreClient;
  */
 public class Main {
     public static void main(String[] args) {
-        FenetreClient f = new FenetreClient();
+        FenetreServeur f = new FenetreServeur();
+        FenetreClient fC = new FenetreClient();
     }
 }

@@ -32,14 +32,13 @@ public class SendPortClient implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent ae) {
-        System.out.println(this.getClient().getPort().getText());
         try {
             this.getClient().setClient(new Client());
             this.getClient().getClient().setHost(this.getClient().getHost().getText());
             this.getClient().getClient().setPort(Integer.parseInt(this.getClient().getPort().getText()));
             this.getClient().getClient().start();
         } catch (Exception ex) {
-            Logger.getLogger(SendPortClient.class.getName()).log(Level.SEVERE, null, ex);
+            ex.getMessage();
         }
     }
     
