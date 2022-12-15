@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.GridLayout;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 import listener.SendPortServer;
 import serveur.Serveur;
 
@@ -19,7 +20,7 @@ import serveur.Serveur;
 public class FenetreServeur extends JFrame{
     JTextField port;
     JPanel inscription;
-    JPanel lsClient;
+    JFrame lsClient;
     JButton valider;
     Serveur serveur;
     JTable tableClient;
@@ -40,11 +41,11 @@ public class FenetreServeur extends JFrame{
         this.inscription = inscription;
     }
 
-    public JPanel getLsClient() {
+    public JFrame getLsClient() {
         return lsClient;
     }
 
-    public void setLsClient(JPanel lsClient) {
+    public void setLsClient(JFrame lsClient) {
         this.lsClient = lsClient;
     }
 
@@ -107,16 +108,25 @@ public class FenetreServeur extends JFrame{
         } catch (Exception ex) {
             ex.getMessage();
         }
-        if(this.getTableClient() == null){
-            this.setTableClient(listeClient);
+        this.setTableClient(listeClient);
+        if(this.getLsClient() == null){
             JFrame frame = new JFrame();
             frame.setSize(800,600);
             frame.setVisible(true);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.add(this.getTableClient());
+            this.setLsClient(frame);
+            this.getLsClient().add(this.getTableClient());
+            this.getLsClient().add(new JScrollPane(this.getTableClient()));
         }else{
-            this.getTableClient().repaint();
+            this.getLsClient().dispose();
+            JFrame frame = new JFrame();
+            frame.setSize(800,600);
+            frame.setVisible(true);
+            this.setLsClient(frame);
+            this.getLsClient().add(this.getTableClient());
+            this.getLsClient().add(new JScrollPane(this.getTableClient()));
         }
+            
+            
         
     }
     

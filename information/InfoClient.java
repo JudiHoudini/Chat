@@ -4,10 +4,12 @@
  */
 package information;
 
+import com.sun.management.OperatingSystemMXBean;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.Integer;
+import java.lang.management.ManagementFactory;
 import java.net.*;
 import java.util.Enumeration;
 import java.util.Vector;
@@ -22,6 +24,7 @@ public class InfoClient implements Serializable{
     String OSVersion;
     String CPU;
     int Cores;
+    long Ram;
     String AddressIp;
     String AddressMac;
 
@@ -49,6 +52,15 @@ public class InfoClient implements Serializable{
         this.OSVersion = OSVersion;
     }
 
+    public long getRam() {
+        return Ram;
+    }
+
+    public void setRam(long Ram) {
+        this.Ram = Ram;
+    }
+    
+    
     public String getCPU() {
         return CPU;
     }
@@ -80,6 +92,10 @@ public class InfoClient implements Serializable{
     public void setAddressMac(String AddressMac) {
         this.AddressMac = AddressMac;
     }
+    public long makaRam(){
+        OperatingSystemMXBean mxBeans = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+        return mxBeans.getTotalPhysicalMemorySize()+mxBeans.getTotalSwapSpaceSize();
+    }
 
     public InfoClient()throws Exception {
         String userName = System.getProperty("user.name");
@@ -87,6 +103,7 @@ public class InfoClient implements Serializable{
         String OS = System.getProperty("os.name");
         String OSVersion = System.getProperty("os.version");
         int cores = Runtime.getRuntime().availableProcessors();
+        this.setRam(this.makaRam());
         this.setAddressIp(this.obtenirAddressIp());
         this.setAddressMac(this.obtenirAdressMac());
         this.setCores(cores);
@@ -135,6 +152,9 @@ public class InfoClient implements Serializable{
             Method m = this.getClass().getMethod("get"+this.getClass().getDeclaredFields()[i].getName());
             if(this.getClass().getDeclaredFields()[i].getType().equals(int.class)){
                 int add = (int) m.invoke(this);
+                valiny.add(String.valueOf(add));
+            }else if(this.getClass().getDeclaredFields()[i].getType().equals(long.class)){
+                long add = (long) m.invoke(this);
                 valiny.add(String.valueOf(add));
             }else{
                 String add =  (String) m.invoke(this);

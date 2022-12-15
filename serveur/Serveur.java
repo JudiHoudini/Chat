@@ -93,7 +93,6 @@ public class Serveur extends Thread{
         InfoClient inf = m.getInfo();
         for (int i = 0; i < getLsClient().size(); i++) {
             if(getLsClient().get(i).getMessage().getInfo().getUserName().equals(inf.getUserName())){
-                System.out.println("ato");
                 return;
             }
         }
