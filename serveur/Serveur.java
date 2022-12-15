@@ -75,7 +75,7 @@ public class Serveur extends Thread{
             InfoClient inf = msg.getInfo();
             this.addClient(msg);
             this.getFenetre().mkLsClient();
-            System.out.println(inf);
+            //System.out.println(inf);
             socket.close();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -92,7 +92,10 @@ public class Serveur extends Thread{
         Client c = new Client(m);
         InfoClient inf = m.getInfo();
         for (int i = 0; i < getLsClient().size(); i++) {
-            if(getLsClient().get(i).getMessage().getInfo().equals(inf))return;
+            if(getLsClient().get(i).getMessage().getInfo().getUserName().equals(inf.getUserName())){
+                System.out.println("ato");
+                return;
+            }
         }
         this.getLsClient().add(c);
     }

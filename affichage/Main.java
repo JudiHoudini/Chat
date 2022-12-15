@@ -23,7 +23,7 @@ public class Main {
             InfoClient inf = new InfoClient();
             Vector add = inf.getListeElementAttributs();
             for (int i = 0; i < add.size(); i++) {
-                System.out.println(add.get(i));
+             //   System.out.println(add.get(i));
             }
         } catch (Exception ex) {
             ex.getMessage();

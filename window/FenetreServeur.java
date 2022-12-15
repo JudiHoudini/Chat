@@ -22,6 +22,7 @@ public class FenetreServeur extends JFrame{
     JPanel lsClient;
     JButton valider;
     Serveur serveur;
+    JTable tableClient;
 
     public JTextField getPort() {
         return port;
@@ -62,6 +63,15 @@ public class FenetreServeur extends JFrame{
     public void setServeur(Serveur serveur) {
         this.serveur = serveur;
     }
+
+    public JTable getTableClient() {
+        return tableClient;
+    }
+
+    public void setTableClient(JTable tableClient) {
+        this.tableClient = tableClient;
+    }
+    
     
     public void mkInscription(){
         JPanel valiny = new JPanel();
@@ -97,11 +107,17 @@ public class FenetreServeur extends JFrame{
         } catch (Exception ex) {
             ex.getMessage();
         }
-        JFrame frame = new JFrame();
-        frame.setSize(800,600);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(listeClient);
+        if(this.getTableClient() == null){
+            this.setTableClient(listeClient);
+            JFrame frame = new JFrame();
+            frame.setSize(800,600);
+            frame.setVisible(true);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.add(this.getTableClient());
+        }else{
+            this.getTableClient().repaint();
+        }
+        
     }
     
 }
