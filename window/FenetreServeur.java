@@ -59,7 +59,7 @@ public class FenetreServeur extends JFrame{
     public void setServeur(Serveur serveur) {
         this.serveur = serveur;
     }
-    
+
     public void mkInscription(){
         JPanel valiny = new JPanel();
         JTextField port = new JTextField("9999");
@@ -86,7 +86,7 @@ public class FenetreServeur extends JFrame{
         this.setSize(300,200);
     }
     public void mkLClient(){
-        JTable listeClient = new JTable
+        JTable listeClient = new JTable();
     }
-    
+
 }
