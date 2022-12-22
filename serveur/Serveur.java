@@ -52,11 +52,7 @@ public class Serveur extends Thread{
     }
     
     
-    public static Socket createServer(int port) throws Exception{
-        ServerSocket server=new ServerSocket(port);
-        Socket socket=server.accept();
-        return socket;
-    }
+   
     
 
     public Serveur(int port,FenetreServeur f) throws IOException {

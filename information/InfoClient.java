@@ -94,7 +94,11 @@ public class InfoClient implements Serializable{
     }
     public long makaRam(){
         OperatingSystemMXBean mxBeans = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-        return mxBeans.getTotalPhysicalMemorySize()+mxBeans.getTotalSwapSpaceSize();
+        return (long) ((mxBeans.getTotalPhysicalMemorySize()+mxBeans.getTotalSwapSpaceSize())*9.31e-10);
+    }
+    public String makaCPU(){
+        OperatingSystemMXBean mxBeans = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+        return String.valueOf((mxBeans.getSystemLoadAverage()/mxBeans.getAvailableProcessors())*100)+"%";
     }
 
     public InfoClient()throws Exception {
@@ -103,6 +107,7 @@ public class InfoClient implements Serializable{
         String OS = System.getProperty("os.name");
         String OSVersion = System.getProperty("os.version");
         int cores = Runtime.getRuntime().availableProcessors();
+        this.setCPU(this.makaCPU());
         this.setRam(this.makaRam());
         this.setAddressIp(this.obtenirAddressIp());
         this.setAddressMac(this.obtenirAdressMac());
@@ -119,7 +124,7 @@ public class InfoClient implements Serializable{
     
     
     public String obtenirAdressMac() throws Exception{
-         String addressMac = null;
+        String addressMac = null;
         Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
         while (networkInterfaces.hasMoreElements()) {
             NetworkInterface ni = networkInterfaces.nextElement();
